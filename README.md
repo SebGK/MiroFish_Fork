@@ -20,7 +20,7 @@ Einfacher universeller Schwarmintelligenz-Motor, der alles vorhersagt
 [![X](https://img.shields.io/badge/X-Follow-000000?style=flat-square&logo=x&logoColor=white)](https://x.com/mirofish_ai)
 [![Instagram](https://img.shields.io/badge/Instagram-Follow-E4405F?style=flat-square&logo=instagram&logoColor=white)](https://www.instagram.com/mirofish_ai/)
 
-[Deutsch](./README.md) | [Ehemals englische Fassung](./README-EN.md)
+[Deutsch](./README.md) | [Englische Dokumentation](./README-EN.md)
 
 </div>
 

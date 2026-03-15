@@ -216,7 +216,7 @@
     <!-- 底部图例 (Bottom Left) -->
     <div v-if="graphData && entityTypes.length" class="graph-legend">
       <span class="legend-title">Entitätstypen</span>
-      <div class="legend-Einträge">
+      <div class="legend-items">
         <div class="legend-item" v-for="type in entityTypes" :key="type.name">
           <span class="legend-dot" :style="{ background: type.color }"></span>
           <span class="legend-label">{{ type.name }}</span>
@@ -230,7 +230,7 @@
         <input type="checkbox" v-model="showEdgeLabels" />
         <span class="slider"></span>
       </label>
-      <span class="toggle-label">Show Edge Labels</span>
+      <span class="toggle-label">Kantenbeschriftungen anzeigen</span>
     </div>
   </div>
 </template>
@@ -710,7 +710,7 @@ const renderGraph = () => {
       selectedItem.value = {
         type: 'node',
         data: d.rawData,
-        entityTyp: d.type,
+        entityType: d.type,
         color: getColor(d.type)
       }
     })
@@ -833,7 +833,7 @@ onUnmounted(() => {
   z-index: 10;
   display: flex;
   justify-content: space-between;
-  align-Einträge: center;
+  align-items: center;
   background: linear-gradient(to bottom, rgba(255,255,255,0.95), rgba(255,255,255,0));
   pointer-events: none;
 }
@@ -849,7 +849,7 @@ onUnmounted(() => {
   pointer-events: auto;
   display: flex;
   gap: 10px;
-  align-Einträge: center;
+  align-items: center;
 }
 
 .tool-btn {
@@ -859,7 +859,7 @@ onUnmounted(() => {
   background: #FFF;
   border-radius: 6px;
   display: flex;
-  align-Einträge: center;
+  align-items: center;
   justify-content: center;
   gap: 6px;
   cursor: pointer;
@@ -934,7 +934,7 @@ onUnmounted(() => {
   letter-spacing: 0.5px;
 }
 
-.legend-Einträge {
+.legend-items {
   display: flex;
   flex-wrap: wrap;
   gap: 10px 16px;
@@ -943,7 +943,7 @@ onUnmounted(() => {
 
 .legend-item {
   display: flex;
-  align-Einträge: center;
+  align-items: center;
   gap: 6px;
   font-size: 12px;
   color: #555;
@@ -966,7 +966,7 @@ onUnmounted(() => {
   top: 60px;
   right: 20px;
   display: flex;
-  align-Einträge: center;
+  align-items: center;
   gap: 10px;
   background: #FFF;
   padding: 8px 14px;
@@ -1048,7 +1048,7 @@ input:checked + .slider:before {
 .detail-panel-header {
   display: flex;
   justify-content: space-between;
-  align-Einträge: center;
+  align-items: center;
   padding: 14px 16px;
   background: #FAFAFA;
   border-bottom: 1px solid #EEE;
@@ -1223,7 +1223,7 @@ input:checked + .slider:before {
   border-radius: 30px;
   font-size: 13px;
   display: flex;
-  align-Einträge: center;
+  align-items: center;
   gap: 10px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -1234,7 +1234,7 @@ input:checked + .slider:before {
 
 .memory-icon-wrapper {
   display: flex;
-  align-Einträge: center;
+  align-items: center;
   justify-content: center;
   animation: breathe 2s ease-in-out infinite;
 }
@@ -1258,7 +1258,7 @@ input:checked + .slider:before {
 
 .finished-hint .hint-icon-wrapper {
   display: flex;
-  align-Einträge: center;
+  align-items: center;
   justify-content: center;
 }
 
@@ -1275,7 +1275,7 @@ input:checked + .slider:before {
 
 .hint-close-btn {
   display: flex;
-  align-Einträge: center;
+  align-items: center;
   justify-content: center;
   width: 22px;
   height: 22px;
@@ -1308,7 +1308,7 @@ input:checked + .slider:before {
 /* Self-loop styles */
 .self-loop-header {
   display: flex;
-  align-Einträge: center;
+  align-items: center;
   gap: 8px;
   background: linear-gradient(135deg, #E8F5E9 0%, #F1F8E9 100%);
   border: 1px solid #C8E6C9;
@@ -1337,7 +1337,7 @@ input:checked + .slider:before {
 
 .self-loop-item-header {
   display: flex;
-  align-Einträge: center;
+  align-items: center;
   gap: 8px;
   padding: 10px 12px;
   background: #F5F5F5;
@@ -1373,7 +1373,7 @@ input:checked + .slider:before {
   width: 20px;
   height: 20px;
   display: flex;
-  align-Einträge: center;
+  align-items: center;
   justify-content: center;
   font-size: 14px;
   font-weight: 600;
