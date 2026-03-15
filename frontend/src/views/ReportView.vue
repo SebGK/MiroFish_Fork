@@ -15,7 +15,7 @@
             :class="{ active: viewMode === mode }"
             @click="viewMode = mode"
           >
-            {{ { graph: '图谱', split: '双栏', workbench: '工作台' }[mode] }}
+            {{ { graph: 'Graph', split: 'Geteilt', workbench: 'Arbeitsbereich' }[mode] }}
           </button>
         </div>
       </div>
@@ -23,7 +23,7 @@
       <div class="header-right">
         <div class="workflow-step">
           <span class="step-num">Step 4/5</span>
-          <span class="step-name">报告生成</span>
+          <span class="step-name">Berichtserstellung</span>
         </div>
         <div class="step-divider"></div>
         <span class="status-indicator" :class="statusClass">
@@ -47,7 +47,7 @@
         />
       </div>
 
-      <!-- Right Panel: Step4 报告生成 -->
+      <!-- Right Panel: Step4 Berichtserstellung -->
       <div class="panel-wrapper right" :style="rightPanelStyle">
         <Step4Report
           :reportId="currentReportId"
@@ -109,9 +109,9 @@ const statusClass = computed(() => {
 })
 
 const statusText = computed(() => {
-  if (currentStatus.value === 'error') return 'Error'
-  if (currentStatus.value === 'completed') return 'Completed'
-  return 'Generating'
+  if (currentStatus.value === 'error') return 'Fehler'
+  if (currentStatus.value === 'completed') return 'Abgeschlossen'
+  return 'Wird erstellt'
 })
 
 // --- Helpers ---

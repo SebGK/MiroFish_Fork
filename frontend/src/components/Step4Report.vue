@@ -8,7 +8,7 @@
           <!-- Report Header -->
           <div class="report-header-block">
             <div class="report-meta">
-              <span class="report-tag">Prediction Report</span>
+              <span class="report-tag">Prognosebericht</span>
               <span class="report-id">ID: {{ reportId || 'REF-2024-X92' }}</span>
             </div>
             <h1 class="main-title">{{ reportOutline.title }}</h1>
@@ -58,7 +58,7 @@
                       <path d="M12 2a10 10 0 0 1 10 10" stroke-width="4" stroke="#4B5563" stroke-linecap="round"></path>
                     </svg>
                   </div>
-                  <span class="loading-text">正在生成{{ section.title }}...</span>
+                  <span class="loading-text">{{ section.title }} wird erstellt...</span>
                 </div>
               </div>
             </div>
@@ -72,7 +72,7 @@
             <div class="waiting-ring"></div>
             <div class="waiting-ring"></div>
           </div>
-          <span class="waiting-text">Waiting for Report Agent...</span>
+          <span class="waiting-text">Warte auf den Report-Agent...</span>
         </div>
       </div>
 
@@ -89,15 +89,15 @@
         <div class="workflow-overview" v-if="agentLogs.length > 0 || reportOutline">
           <div class="workflow-metrics">
             <div class="metric">
-              <span class="metric-label">Sections</span>
+              <span class="metric-label">Abschnitte</span>
               <span class="metric-value mono">{{ completedSections }}/{{ totalSections }}</span>
             </div>
             <div class="metric">
-              <span class="metric-label">Elapsed</span>
+              <span class="metric-label">Dauer</span>
               <span class="metric-value mono">{{ formatElapsedTime }}</span>
             </div>
             <div class="metric">
-              <span class="metric-label">Tools</span>
+              <span class="metric-label">Werkzeuge</span>
               <span class="metric-value mono">{{ totalToolCalls }}</span>
             </div>
             <div class="metric metric-right">
@@ -129,7 +129,7 @@
 
           <!-- Next Step Button - 在完成后显示 -->
           <button v-if="isComplete" class="next-step-btn" @click="goToInteraction">
-            <span>进入深度互动</span>
+            <span>Zur Interaktion</span>
             <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="5" y1="12" x2="19" y2="12"></line>
               <polyline points="12 5 19 12 12 19"></polyline>
@@ -170,7 +170,7 @@
                       <span class="info-val mono">{{ log.details?.simulation_id }}</span>
                     </div>
                     <div class="info-row" v-if="log.details?.simulation_requirement">
-                      <span class="info-key">Requirement</span>
+                      <span class="info-key">Anforderung</span>
                       <span class="info-val">{{ log.details.simulation_requirement }}</span>
                     </div>
                   </template>
@@ -182,7 +182,7 @@
                   <template v-if="log.action === 'planning_complete'">
                     <div class="status-message success">{{ log.details?.message }}</div>
                     <div class="outline-badge" v-if="log.details?.outline">
-                      {{ log.details.outline.sections?.length || 0 }} sections planned
+                      {{ log.details.outline.sections?.length || 0 }} Abschnitte geplant
                     </div>
                   </template>
 
@@ -1708,9 +1708,9 @@ const statusClass = computed(() => {
 })
 
 const statusText = computed(() => {
-  if (isComplete.value) return 'Completed'
-  if (agentLogs.value.length > 0) return 'Generating...'
-  return 'Waiting'
+  if (isComplete.value) return 'Abgeschlossen'
+  if (agentLogs.value.length > 0) return 'Wird erstellt...'
+  return 'Wartet'
 })
 
 const totalSections = computed(() => {
@@ -1995,7 +1995,7 @@ const getActionLabel = (action) => {
     'planning_start': 'Planning',
     'planning_complete': 'Plan Complete',
     'section_start': 'Section Start',
-    'section_content': 'Content Ready',
+    'section_content': 'Inhalt bereit',
     'section_complete': 'Section Done',
     'tool_call': 'Tool Call',
     'tool_result': 'Tool Result',

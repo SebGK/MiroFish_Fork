@@ -15,7 +15,7 @@
             :class="{ active: viewMode === mode }"
             @click="viewMode = mode"
           >
-            {{ { graph: '图谱', split: '双栏', workbench: '工作台' }[mode] }}
+            {{ { graph: 'Graph', split: 'Geteilt', workbench: 'Arbeitsbereich' }[mode] }}
           </button>
         </div>
       </div>
@@ -23,7 +23,7 @@
       <div class="header-right">
         <div class="workflow-step">
           <span class="step-num">Step 2/5</span>
-          <span class="step-name">环境搭建</span>
+          <span class="step-name">Umgebungsaufbau</span>
         </div>
         <div class="step-divider"></div>
         <span class="status-indicator" :class="statusClass">
@@ -46,7 +46,7 @@
         />
       </div>
 
-      <!-- Right Panel: Step2 环境搭建 -->
+      <!-- Right Panel: Step2 Umgebungsaufbau -->
       <div class="panel-wrapper right" :style="rightPanelStyle">
         <Step2EnvSetup
           :simulationId="currentSimulationId"
@@ -109,9 +109,9 @@ const statusClass = computed(() => {
 })
 
 const statusText = computed(() => {
-  if (currentStatus.value === 'error') return 'Error'
-  if (currentStatus.value === 'completed') return 'Ready'
-  return 'Preparing'
+  if (currentStatus.value === 'error') return 'Fehler'
+  if (currentStatus.value === 'completed') return 'Bereit'
+  return 'Vorbereitung'
 })
 
 // --- Helpers ---
@@ -146,7 +146,7 @@ const handleGoBack = () => {
 }
 
 const handleNextStep = (params = {}) => {
-  addLog('进入 Step 3: 开始模拟')
+  addLog('Wechsel zu Schritt 3: Simulation starten')
   
   // 记录模拟轮数配置
   if (params.maxRounds) {

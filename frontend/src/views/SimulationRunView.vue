@@ -15,7 +15,7 @@
             :class="{ active: viewMode === mode }"
             @click="viewMode = mode"
           >
-            {{ { graph: '图谱', split: '双栏', workbench: '工作台' }[mode] }}
+            {{ { graph: 'Graph', split: 'Geteilt', workbench: 'Arbeitsbereich' }[mode] }}
           </button>
         </div>
       </div>
@@ -23,7 +23,7 @@
       <div class="header-right">
         <div class="workflow-step">
           <span class="step-num">Step 3/5</span>
-          <span class="step-name">开始模拟</span>
+          <span class="step-name">Simulation starten</span>
         </div>
         <div class="step-divider"></div>
         <span class="status-indicator" :class="statusClass">
@@ -47,7 +47,7 @@
         />
       </div>
 
-      <!-- Right Panel: Step3 开始模拟 -->
+      <!-- Right Panel: Step3 Simulation starten -->
       <div class="panel-wrapper right" :style="rightPanelStyle">
         <Step3Simulation
           :simulationId="currentSimulationId"
@@ -115,9 +115,9 @@ const statusClass = computed(() => {
 })
 
 const statusText = computed(() => {
-  if (currentStatus.value === 'error') return 'Error'
-  if (currentStatus.value === 'completed') return 'Completed'
-  return 'Running'
+  if (currentStatus.value === 'error') return 'Fehler'
+  if (currentStatus.value === 'completed') return 'Abgeschlossen'
+  return 'Läuft'
 })
 
 const isSimulating = computed(() => currentStatus.value === 'processing')
@@ -195,7 +195,7 @@ const handleGoBack = async () => {
 const handleNextStep = () => {
   // Step3Simulation 组件会直接处理报告生成和路由跳转
   // 这个方法仅作为备用
-  addLog('进入 Step 4: 报告生成')
+  addLog('Wechsel zu Schritt 4: Berichtserstellung')
 }
 
 // --- Data Logic ---

@@ -1,14 +1,14 @@
 <template>
   <div class="graph-panel">
     <div class="panel-header">
-      <span class="panel-title">Graph Relationship Visualization</span>
+      <span class="panel-title">Graph-Beziehungsvisualisierung</span>
       <!-- 顶部工具栏 (Internal Top Right) -->
       <div class="header-tools">
-        <button class="tool-btn" @click="$emit('refresh')" :disabled="loading" title="刷新图谱">
+        <button class="tool-btn" @click="$emit('refresh')" :disabled="loading" title="Graph aktualisieren">
           <span class="icon-refresh" :class="{ 'spinning': loading }">↻</span>
-          <span class="btn-text">Refresh</span>
+          <span class="btn-text">Aktualisieren</span>
         </button>
-        <button class="tool-btn" @click="$emit('toggle-maximize')" title="最大化/还原">
+        <button class="tool-btn" @click="$emit('toggle-maximize')" title="Maximieren/Wiederherstellen">
           <span class="icon-maximize">⛶</span>
         </button>
       </div>
@@ -27,7 +27,7 @@
               <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-4.04z" />
             </svg>
           </div>
-          {{ isSimulating ? 'GraphRAG长短期记忆实时更新中' : '实时更新中...' }}
+          {{ isSimulating ? 'GraphRAG-Lang- und Kurzzeitspeicher werden in Echtzeit aktualisiert' : 'Wird in Echtzeit aktualisiert...' }}
         </div>
         
         <!-- 模拟结束后的提示 -->
@@ -39,8 +39,8 @@
               <line x1="12" y1="8" x2="12.01" y2="8"></line>
             </svg>
           </div>
-          <span class="hint-text">还有少量内容处理中，建议稍后手动刷新图谱</span>
-          <button class="hint-close-btn" @click="dismissFinishedHint" title="关闭提示">
+          <span class="hint-text">Einige Inhalte werden noch verarbeitet. Bitte aktualisiere den Graphen später manuell.</span>
+          <button class="hint-close-btn" @click="dismissFinishedHint" title="Hinweis schließen">
             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="18" y1="6" x2="6" y2="18"></line>
               <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -51,7 +51,7 @@
         <!-- 节点/边详情面板 -->
         <div v-if="selectedItem" class="detail-panel">
           <div class="detail-panel-header">
-            <span class="detail-title">{{ selectedItem.type === 'node' ? 'Node Details' : 'Relationship' }}</span>
+            <span class="detail-title">{{ selectedItem.type === 'node' ? 'Knotendetails' : 'Beziehung' }}</span>
             <span v-if="selectedItem.type === 'node'" class="detail-type-badge" :style="{ background: selectedItem.color, color: '#fff' }">
               {{ selectedItem.entityType }}
             </span>
@@ -69,24 +69,24 @@
               <span class="detail-value uuid-text">{{ selectedItem.data.uuid }}</span>
             </div>
             <div class="detail-row" v-if="selectedItem.data.created_at">
-              <span class="detail-label">Created:</span>
+              <span class="detail-label">Erstellt:</span>
               <span class="detail-value">{{ formatDateTime(selectedItem.data.created_at) }}</span>
             </div>
             
             <!-- Properties -->
             <div class="detail-section" v-if="selectedItem.data.attributes && Object.keys(selectedItem.data.attributes).length > 0">
-              <div class="section-title">Properties:</div>
+              <div class="section-title">Eigenschaften:</div>
               <div class="properties-list">
                 <div v-for="(value, key) in selectedItem.data.attributes" :key="key" class="property-item">
                   <span class="property-key">{{ key }}:</span>
-                  <span class="property-value">{{ value || 'None' }}</span>
+                  <span class="property-value">{{ value || 'Keine' }}</span>
                 </div>
               </div>
             </div>
             
             <!-- Summary -->
             <div class="detail-section" v-if="selectedItem.data.summary">
-              <div class="section-title">Summary:</div>
+              <div class="section-title">Zusammenfassung:</div>
               <div class="summary-text">{{ selectedItem.data.summary }}</div>
             </div>
             
@@ -106,8 +106,8 @@
             <!-- 自环组详情 -->
             <template v-if="selectedItem.data.isSelfLoopGroup">
               <div class="edge-relation-header self-loop-header">
-                {{ selectedItem.data.source_name }} - Self Relations
-                <span class="self-loop-count">{{ selectedItem.data.selfLoopCount }} items</span>
+                {{ selectedItem.data.source_name }} - Selbstbeziehungen
+                <span class="self-loop-count">{{ selectedItem.data.selfLoopCount }} Einträge</span>
               </div>
               
               <div class="self-loop-list">
@@ -122,7 +122,7 @@
                     @click="toggleSelfLoop(loop.uuid || idx)"
                   >
                     <span class="self-loop-index">#{{ idx + 1 }}</span>
-                    <span class="self-loop-name">{{ loop.name || loop.fact_type || 'RELATED' }}</span>
+                    <span class="self-loop-name">{{ loop.name || loop.fact_type || 'VERBUNDEN' }}</span>
                     <span class="self-loop-toggle">{{ expandedSelfLoops.has(loop.uuid || idx) ? '−' : '+' }}</span>
                   </div>
                   
@@ -132,19 +132,19 @@
                       <span class="detail-value uuid-text">{{ loop.uuid }}</span>
                     </div>
                     <div class="detail-row" v-if="loop.fact">
-                      <span class="detail-label">Fact:</span>
+                      <span class="detail-label">Fakt:</span>
                       <span class="detail-value fact-text">{{ loop.fact }}</span>
                     </div>
                     <div class="detail-row" v-if="loop.fact_type">
-                      <span class="detail-label">Type:</span>
+                      <span class="detail-label">Typ:</span>
                       <span class="detail-value">{{ loop.fact_type }}</span>
                     </div>
                     <div class="detail-row" v-if="loop.created_at">
-                      <span class="detail-label">Created:</span>
+                      <span class="detail-label">Erstellt:</span>
                       <span class="detail-value">{{ formatDateTime(loop.created_at) }}</span>
                     </div>
                     <div v-if="loop.episodes && loop.episodes.length > 0" class="self-loop-episodes">
-                      <span class="detail-label">Episodes:</span>
+                      <span class="detail-label">Episoden:</span>
                       <div class="episodes-list compact">
                         <span v-for="ep in loop.episodes" :key="ep" class="episode-tag small">{{ ep }}</span>
                       </div>
@@ -157,7 +157,7 @@
             <!-- 普通边详情 -->
             <template v-else>
               <div class="edge-relation-header">
-                {{ selectedItem.data.source_name }} → {{ selectedItem.data.name || 'RELATED_TO' }} → {{ selectedItem.data.target_name }}
+                {{ selectedItem.data.source_name }} → {{ selectedItem.data.name || 'VERBUNDEN_MIT' }} → {{ selectedItem.data.target_name }}
               </div>
               
               <div class="detail-row">
@@ -166,20 +166,20 @@
               </div>
               <div class="detail-row">
                 <span class="detail-label">Label:</span>
-                <span class="detail-value">{{ selectedItem.data.name || 'RELATED_TO' }}</span>
+                <span class="detail-value">{{ selectedItem.data.name || 'VERBUNDEN_MIT' }}</span>
               </div>
               <div class="detail-row">
-                <span class="detail-label">Type:</span>
-                <span class="detail-value">{{ selectedItem.data.fact_type || 'Unknown' }}</span>
+                <span class="detail-label">Typ:</span>
+                <span class="detail-value">{{ selectedItem.data.fact_type || 'Unbekannt' }}</span>
               </div>
               <div class="detail-row" v-if="selectedItem.data.fact">
-                <span class="detail-label">Fact:</span>
+                <span class="detail-label">Fakt:</span>
                 <span class="detail-value fact-text">{{ selectedItem.data.fact }}</span>
               </div>
               
               <!-- Episodes -->
               <div class="detail-section" v-if="selectedItem.data.episodes && selectedItem.data.episodes.length > 0">
-                <div class="section-title">Episodes:</div>
+                <div class="section-title">Episoden:</div>
                 <div class="episodes-list">
                   <span v-for="ep in selectedItem.data.episodes" :key="ep" class="episode-tag">
                     {{ ep }}
@@ -188,11 +188,11 @@
               </div>
               
               <div class="detail-row" v-if="selectedItem.data.created_at">
-                <span class="detail-label">Created:</span>
+                <span class="detail-label">Erstellt:</span>
                 <span class="detail-value">{{ formatDateTime(selectedItem.data.created_at) }}</span>
               </div>
               <div class="detail-row" v-if="selectedItem.data.valid_at">
-                <span class="detail-label">Valid From:</span>
+                <span class="detail-label">Gültig ab:</span>
                 <span class="detail-value">{{ formatDateTime(selectedItem.data.valid_at) }}</span>
               </div>
             </template>
@@ -203,20 +203,20 @@
       <!-- 加载状态 -->
       <div v-else-if="loading" class="graph-state">
         <div class="loading-spinner"></div>
-        <p>图谱数据加载中...</p>
+        <p>Graph-Daten werden geladen...</p>
       </div>
       
       <!-- 等待/空状态 -->
       <div v-else class="graph-state">
         <div class="empty-icon">❖</div>
-        <p class="empty-text">等待本体生成...</p>
+        <p class="empty-text">Warte auf Ontologieerstellung...</p>
       </div>
     </div>
 
     <!-- 底部图例 (Bottom Left) -->
     <div v-if="graphData && entityTypes.length" class="graph-legend">
-      <span class="legend-title">Entity Types</span>
-      <div class="legend-items">
+      <span class="legend-title">Entitätstypen</span>
+      <div class="legend-Einträge">
         <div class="legend-item" v-for="type in entityTypes" :key="type.name">
           <span class="legend-dot" :style="{ background: type.color }"></span>
           <span class="legend-label">{{ type.name }}</span>
@@ -403,13 +403,13 @@ const renderGraph = () => {
       processedSelfLoopNodes.add(e.source_node_uuid)
       
       const allSelfLoops = selfLoopEdges[e.source_node_uuid]
-      const nodeName = nodeMap[e.source_node_uuid]?.name || 'Unknown'
+      const nodeName = nodeMap[e.source_node_uuid]?.name || 'Unbekannt'
       
       edges.push({
         source: e.source_node_uuid,
         target: e.target_node_uuid,
         type: 'SELF_LOOP',
-        name: `Self Relations (${allSelfLoops.length})`,
+        name: `Selbstbeziehungen (${allSelfLoops.length})`,
         curvature: 0,
         isSelfLoop: true,
         rawData: {
@@ -449,8 +449,8 @@ const renderGraph = () => {
     edges.push({
       source: e.source_node_uuid,
       target: e.target_node_uuid,
-      type: e.fact_type || e.name || 'RELATED',
-      name: e.name || e.fact_type || 'RELATED',
+      type: e.fact_type || e.name || 'VERBUNDEN',
+      name: e.name || e.fact_type || 'VERBUNDEN',
       curvature,
       isSelfLoop: false,
       pairIndex: currentIndex,
@@ -710,7 +710,7 @@ const renderGraph = () => {
       selectedItem.value = {
         type: 'node',
         data: d.rawData,
-        entityType: d.type,
+        entityTyp: d.type,
         color: getColor(d.type)
       }
     })
@@ -833,7 +833,7 @@ onUnmounted(() => {
   z-index: 10;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-Einträge: center;
   background: linear-gradient(to bottom, rgba(255,255,255,0.95), rgba(255,255,255,0));
   pointer-events: none;
 }
@@ -849,7 +849,7 @@ onUnmounted(() => {
   pointer-events: auto;
   display: flex;
   gap: 10px;
-  align-items: center;
+  align-Einträge: center;
 }
 
 .tool-btn {
@@ -859,7 +859,7 @@ onUnmounted(() => {
   background: #FFF;
   border-radius: 6px;
   display: flex;
-  align-items: center;
+  align-Einträge: center;
   justify-content: center;
   gap: 6px;
   cursor: pointer;
@@ -911,7 +911,7 @@ onUnmounted(() => {
   opacity: 0.2;
 }
 
-/* Entity Types Legend - Bottom Left */
+/* Entitätstypen Legend - Bottom Left */
 .graph-legend {
   position: absolute;
   bottom: 24px;
@@ -934,7 +934,7 @@ onUnmounted(() => {
   letter-spacing: 0.5px;
 }
 
-.legend-items {
+.legend-Einträge {
   display: flex;
   flex-wrap: wrap;
   gap: 10px 16px;
@@ -943,7 +943,7 @@ onUnmounted(() => {
 
 .legend-item {
   display: flex;
-  align-items: center;
+  align-Einträge: center;
   gap: 6px;
   font-size: 12px;
   color: #555;
@@ -966,7 +966,7 @@ onUnmounted(() => {
   top: 60px;
   right: 20px;
   display: flex;
-  align-items: center;
+  align-Einträge: center;
   gap: 10px;
   background: #FFF;
   padding: 8px 14px;
@@ -1048,7 +1048,7 @@ input:checked + .slider:before {
 .detail-panel-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-Einträge: center;
   padding: 14px 16px;
   background: #FAFAFA;
   border-bottom: 1px solid #EEE;
@@ -1223,7 +1223,7 @@ input:checked + .slider:before {
   border-radius: 30px;
   font-size: 13px;
   display: flex;
-  align-items: center;
+  align-Einträge: center;
   gap: 10px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -1234,7 +1234,7 @@ input:checked + .slider:before {
 
 .memory-icon-wrapper {
   display: flex;
-  align-items: center;
+  align-Einträge: center;
   justify-content: center;
   animation: breathe 2s ease-in-out infinite;
 }
@@ -1258,7 +1258,7 @@ input:checked + .slider:before {
 
 .finished-hint .hint-icon-wrapper {
   display: flex;
-  align-items: center;
+  align-Einträge: center;
   justify-content: center;
 }
 
@@ -1275,7 +1275,7 @@ input:checked + .slider:before {
 
 .hint-close-btn {
   display: flex;
-  align-items: center;
+  align-Einträge: center;
   justify-content: center;
   width: 22px;
   height: 22px;
@@ -1308,7 +1308,7 @@ input:checked + .slider:before {
 /* Self-loop styles */
 .self-loop-header {
   display: flex;
-  align-items: center;
+  align-Einträge: center;
   gap: 8px;
   background: linear-gradient(135deg, #E8F5E9 0%, #F1F8E9 100%);
   border: 1px solid #C8E6C9;
@@ -1337,7 +1337,7 @@ input:checked + .slider:before {
 
 .self-loop-item-header {
   display: flex;
-  align-items: center;
+  align-Einträge: center;
   gap: 8px;
   padding: 10px 12px;
   background: #F5F5F5;
@@ -1373,7 +1373,7 @@ input:checked + .slider:before {
   width: 20px;
   height: 20px;
   display: flex;
-  align-items: center;
+  align-Einträge: center;
   justify-content: center;
   font-size: 14px;
   font-weight: 600;

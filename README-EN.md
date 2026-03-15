@@ -20,11 +20,11 @@
 [![X](https://img.shields.io/badge/X-Follow-000000?style=flat-square&logo=x&logoColor=white)](https://x.com/mirofish_ai)
 [![Instagram](https://img.shields.io/badge/Instagram-Follow-E4405F?style=flat-square&logo=instagram&logoColor=white)](https://www.instagram.com/mirofish_ai/)
 
-[English](./README-EN.md) | [中文文档](./README.md)
+[Deutsche Dokumentation](./README.md) | [Diese Datei](./README-EN.md)
 
 </div>
 
-## ⚡ Overview
+## ⚡ Überblick
 
 **MiroFish** is a next-generation AI prediction engine powered by multi-agent technology. By extracting seed information from the real world (such as breaking news, policy drafts, or financial signals), it automatically constructs a high-fidelity parallel digital world. Within this space, thousands of intelligent agents with independent personalities, long-term memory, and behavioral logic freely interact and undergo social evolution. You can inject variables dynamically from a "God's-eye view" to precisely deduce future trajectories — **rehearse the future in a digital sandbox, and win decisions after countless simulations**.
 
@@ -40,7 +40,7 @@ MiroFish is dedicated to creating a swarm intelligence mirror that maps reality.
 
 From serious predictions to playful simulations, we let every "what if" see its outcome, making it possible to predict anything.
 
-## 🌐 Live Demo
+## 🌐 Live-Demo
 
 Welcome to visit our online demo environment and experience a prediction simulation on trending public opinion events we've prepared for you: [mirofish-live-demo](https://666ghj.github.io/mirofish-demo/)
 
@@ -63,7 +63,7 @@ Welcome to visit our online demo environment and experience a prediction simulat
 </table>
 </div>
 
-## 🎬 Demo Videos
+## 🎬 Demo-Videos
 
 ### 1. Wuhan University Public Opinion Simulation + MiroFish Project Introduction
 
@@ -83,7 +83,7 @@ Click the image to watch MiroFish's deep prediction of the lost ending based on 
 
 > **Financial Prediction**, **Political News Prediction** and more examples coming soon...
 
-## 🔄 Workflow
+## 🔄 Arbeitsablauf
 
 1. **Graph Building**: Seed extraction & Individual/collective memory injection & GraphRAG construction
 2. **Environment Setup**: Entity relationship extraction & Persona generation & Agent configuration injection
@@ -91,7 +91,7 @@ Click the image to watch MiroFish's deep prediction of the lost ending based on 
 4. **Report Generation**: ReportAgent with rich toolset for deep interaction with post-simulation environment
 5. **Deep Interaction**: Chat with any agent in the simulated world & Interact with ReportAgent
 
-## 🚀 Quick Start
+## 🚀 Schnellstart
 
 ### Option 1: Source Code Deployment (Recommended)
 
@@ -176,7 +176,7 @@ Reads `.env` from root directory by default, maps ports `3000 (frontend) / 5001 
 
 > Mirror address for faster pulling is provided as comments in `docker-compose.yml`, replace if needed.
 
-## 📬 Join the Conversation
+## 📬 Austausch
 
 <div align="center">
 <img src="./static/image/QQ群.png" alt="QQ Group" width="60%"/>
@@ -186,13 +186,13 @@ Reads `.env` from root directory by default, maps ports `3000 (frontend) / 5001 
 
 The MiroFish team is recruiting full-time/internship positions. If you're interested in multi-agent simulation and LLM applications, feel free to send your resume to: **mirofish@shanda.com**
 
-## 📄 Acknowledgments
+## 📄 Danksagung
 
 **MiroFish has received strategic support and incubation from Shanda Group!**
 
 MiroFish's simulation engine is powered by **[OASIS (Open Agent Social Interaction Simulations)](https://github.com/camel-ai/oasis)**, We sincerely thank the CAMEL-AI team for their open-source contributions!
 
-## 📈 Project Statistics
+## 📈 Projektstatistik
 
 <a href="https://www.star-history.com/#666ghj/MiroFish&type=date&legend=top-left">
  <picture>
