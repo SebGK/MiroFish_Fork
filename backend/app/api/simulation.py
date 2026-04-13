@@ -890,8 +890,8 @@ def get_simulation_history():
                 {
                     "simulation_id": "sim_xxxx",
                     "project_id": "proj_xxxx",
-                    "project_name": "武大舆情分析",
-                    "simulation_requirement": "如果武汉大学发布...",
+                    "project_name": "WHU Meinungsanalyse",
+                    "simulation_requirement": "Wenn die Wuhan-Universität veröffentlicht...",
                     "status": "completed",
                     "entities_count": 68,
                     "profiles_count": 68,
@@ -2150,7 +2150,7 @@ def interview_agent():
         {
             "simulation_id": "sim_xxxx",       // Pflichtfeld, Simulations-ID
             "agent_id": 0,                     // Pflichtfeld, Agent-ID
-            "prompt": "你对这件事有什么看法？",  // Pflichtfeld, Interview-Frage
+            "prompt": "Was halten Sie davon?",  // Pflichtfeld, Interview-Frage
             "platform": "twitter",             // Optional, Plattform angeben (twitter/reddit)
                                                // Wenn nicht angegeben: Dual-Plattform-Simulation interviewt beide Plattformen gleichzeitig
             "timeout": 60                      // Optional, Timeout (Sekunden), Standard 60
@@ -2161,7 +2161,7 @@ def interview_agent():
             "success": true,
             "data": {
                 "agent_id": 0,
-                "prompt": "你对这件事有什么看法？",
+                "prompt": "Was halten Sie davon?",
                 "result": {
                     "agent_id": 0,
                     "prompt": "...",
@@ -2179,10 +2179,10 @@ def interview_agent():
             "success": true,
             "data": {
                 "agent_id": 0,
-                "prompt": "你对这件事有什么看法？",
+                "prompt": "Was halten Sie davon?",
                 "result": {
                     "agent_id": 0,
-                    "response": "我认为...",
+                    "response": "Ich denke...",
                     "platform": "twitter",
                     "timestamp": "2025-12-08T10:00:00"
                 },
@@ -2281,12 +2281,12 @@ def interview_agents_batch():
             "interviews": [                    // Pflichtfeld, Interview-Liste
                 {
                     "agent_id": 0,
-                    "prompt": "你对A有什么看法？",
+                    "prompt": "Was halten Sie von A?",
                     "platform": "twitter"      // Optional, Interview-Plattform für diesen Agent angeben
                 },
                 {
                     "agent_id": 1,
-                    "prompt": "你对B有什么看法？"  // Ohne platform-Angabe wird der Standardwert verwendet
+                    "prompt": "Was halten Sie von B?"  // Ohne platform-Angabe wird der Standardwert verwendet
                 }
             ],
             "platform": "reddit",              // Optional, Standardplattform (wird durch platform jedes Eintrags überschrieben)
@@ -2416,7 +2416,7 @@ def interview_all_agents():
     Anfrage (JSON):
         {
             "simulation_id": "sim_xxxx",            // Pflichtfeld, Simulations-ID
-            "prompt": "你对这件事整体有什么看法？",  // Pflichtfeld, Interview-Frage (alle Agents verwenden dieselbe Frage)
+            "prompt": "Was ist Ihre Gesamtmeinung dazu?",  // Pflichtfeld, Interview-Frage (alle Agents verwenden dieselbe Frage)
             "platform": "reddit",                   // Optional, Plattform angeben (twitter/reddit)
                                                     // Wenn nicht angegeben: Dual-Plattform-Simulation interviewt jeden Agent auf beiden Plattformen gleichzeitig
             "timeout": 180                          // Optional, Timeout (Sekunden), Standard 180
@@ -2533,8 +2533,8 @@ def get_interview_history():
                 "history": [
                     {
                         "agent_id": 0,
-                        "response": "我认为...",
-                        "prompt": "你对这件事有什么看法？",
+                        "response": "Ich denke...",
+                        "prompt": "Was halten Sie davon?",
                         "timestamp": "2025-12-08T10:00:00",
                         "platform": "reddit"
                     },
