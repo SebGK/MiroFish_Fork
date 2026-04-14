@@ -1,11 +1,11 @@
 """
-Zep检索工具服务
-封装图谱搜索、节点读取、边查询等工具，供Report Agent使用
+Zep-Abrufdienst
+Kapselt Graphsuche, Knotenlesen, Kantenabfragen und weitere Werkzeuge für den Report Agent.
 
-核心检索工具（优化后）：
-1. InsightForge（深度洞察检索）- 最强大的混合检索，自动生成子问题并多维度检索
-2. PanoramaSearch（广度搜索）- 获取全貌，包括过期内容
-3. QuickSearch（简单搜索）- 快速检索
+Kern-Abrufwerkzeuge (optimiert):
+1. InsightForge (Tiefenanalyse-Abruf) - Leistungsstärkstes hybrides Abrufwerkzeug, generiert automatisch Unterfragen und ruft mehrdimensional ab
+2. PanoramaSearch (Breitensuche) - Gesamtüberblick einschließlich abgelaufener Inhalte
+3. QuickSearch (Einfache Suche) - Schneller Abruf
 """
 
 import time
@@ -26,7 +26,7 @@ logger = get_logger('mirofish.zep_tools')
 
 @dataclass
 class SearchResult:
-    """搜索结果"""
+    """Suchergebnis"""
     facts: List[str]
     edges: List[Dict[str, Any]]
     nodes: List[Dict[str, Any]]
@@ -43,11 +43,11 @@ class SearchResult:
         }
     
     def to_text(self) -> str:
-        """转换为文本格式，供LLM理解"""
-        text_parts = [f"搜索查询: {self.query}", f"找到 {self.total_count} 条相关信息"]
+        """In Textformat umwandeln, für LLM-Verständnis"""
+        text_parts = [f"Suchabfrage: {self.query}", f"{self.total_count} relevante Informationen gefunden"]
         
         if self.facts:
-            text_parts.append("\n### 相关事实:")
+            text_parts.append("\n### Relevante Fakten:")
             for i, fact in enumerate(self.facts, 1):
                 text_parts.append(f"{i}. {fact}")
         
@@ -56,7 +56,7 @@ class SearchResult:
 
 @dataclass
 class NodeInfo:
-    """节点信息"""
+    """Knoteninformation"""
     uuid: str
     name: str
     labels: List[str]
