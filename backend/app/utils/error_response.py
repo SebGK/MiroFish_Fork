@@ -1,5 +1,5 @@
 """
-错误响应处理工具
+Fehlerantwort-Verarbeitungswerkzeug
 """
 
 import json
@@ -9,7 +9,7 @@ from flask import Response
 
 
 def sanitize_error_payload(payload: Any, status_code: int, debug_mode: bool = False) -> Any:
-    """在非调试模式下移除 5xx JSON 响应中的 traceback 详情"""
+    """Traceback-Details aus 5xx-JSON-Antworten im Nicht-Debug-Modus entfernen"""
     if debug_mode or status_code < 500 or not isinstance(payload, dict) or 'traceback' not in payload:
         return payload
 
@@ -19,7 +19,7 @@ def sanitize_error_payload(payload: Any, status_code: int, debug_mode: bool = Fa
 
 
 def sanitize_json_error_response(response: Response, debug_mode: bool = False) -> Response:
-    """对 Flask JSON 响应做统一脱敏，避免向客户端泄露内部栈信息"""
+    """Einheitliche Bereinigung von Flask-JSON-Antworten, um das Durchsickern interner Stack-Informationen an den Client zu vermeiden"""
     if not response.is_json:
         return response
 
