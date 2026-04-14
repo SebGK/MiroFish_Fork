@@ -1,5 +1,5 @@
 """
-数据模型模块
+Datenmodell-Modul
 """
 
 from .task import TaskManager, TaskStatus

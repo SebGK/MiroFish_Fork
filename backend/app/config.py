@@ -1,31 +1,31 @@
 """
-配置管理
-统一从项目根目录的 .env 文件加载配置
+Konfigurationsverwaltung
+Einheitliches Laden der Konfiguration aus der .env-Datei im Projektstammverzeichnis
 """
 
 import os
 import secrets
 from dotenv import load_dotenv
 
-# 加载项目根目录的 .env 文件
-# 路径: MiroFish/.env (相对于 backend/app/config.py)
+# .env-Datei aus dem Projektstammverzeichnis laden
+# Pfad: MiroFish/.env (relativ zu backend/app/config.py)
 project_root_env = os.path.join(os.path.dirname(__file__), '../../.env')
 
 if os.path.exists(project_root_env):
     load_dotenv(project_root_env, override=True)
 else:
-    # 如果根目录没有 .env，尝试加载环境变量（用于生产环境）
+    # Falls keine .env im Stammverzeichnis vorhanden, Umgebungsvariablen laden (für Produktionsumgebung)
     load_dotenv(override=True)
 
 
 def get_secret_key(environ=None) -> str:
-    """获取安全的 SECRET_KEY，未配置时生成进程级随机值（重启后会变化）"""
+    """Sicheren SECRET_KEY abrufen; bei fehlender Konfiguration wird ein prozessspezifischer Zufallswert generiert (ändert sich nach Neustart)"""
     env = os.environ if environ is None else environ
     return env.get('SECRET_KEY') or secrets.token_hex(32)
 
 
 def get_debug_mode(environ=None) -> bool:
-    """解析调试模式环境变量，默认关闭；支持 1/true/yes/on"""
+    """Debug-Modus-Umgebungsvariable parsen, standardmäßig deaktiviert; unterstützt 1/true/yes/on"""
     env = os.environ if environ is None else environ
     value = env.get('FLASK_DEBUG')
     if value is None:
@@ -34,37 +34,37 @@ def get_debug_mode(environ=None) -> bool:
 
 
 class Config:
-    """Flask配置类"""
+    """Flask-Konfigurationsklasse"""
     
-    # Flask配置
+    # Flask-Konfiguration
     SECRET_KEY = get_secret_key()
     DEBUG = get_debug_mode()
     
-    # JSON配置 - 禁用ASCII转义，让中文直接显示（而不是 \uXXXX 格式）
+    # JSON-Konfiguration - ASCII-Escaping deaktivieren, damit Nicht-ASCII-Zeichen direkt angezeigt werden (statt \uXXXX-Format)
     JSON_AS_ASCII = False
     
-    # LLM配置（统一使用OpenAI格式）
+    # LLM-Konfiguration (einheitlich im OpenAI-Format)
     LLM_API_KEY = os.environ.get('LLM_API_KEY')
     LLM_BASE_URL = os.environ.get('LLM_BASE_URL', 'https://api.z.ai/api/coding/paas/v4')
     LLM_MODEL_NAME = os.environ.get('LLM_MODEL_NAME', 'glm-4.7')
     
-    # Zep配置
+    # Zep-Konfiguration
     ZEP_API_KEY = os.environ.get('ZEP_API_KEY')
     
-    # 文件上传配置
+    # Datei-Upload-Konfiguration
     MAX_CONTENT_LENGTH = 50 * 1024 * 1024  # 50MB
     UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), '../uploads')
     ALLOWED_EXTENSIONS = {'pdf', 'md', 'txt', 'markdown'}
     
-    # 文本处理配置
-    DEFAULT_CHUNK_SIZE = 500  # 默认切块大小
-    DEFAULT_CHUNK_OVERLAP = 50  # 默认重叠大小
+    # Textverarbeitungs-Konfiguration
+    DEFAULT_CHUNK_SIZE = 500  # Standard-Chunk-Größe
+    DEFAULT_CHUNK_OVERLAP = 50  # Standard-Überlappungsgröße
     
-    # OASIS模拟配置
+    # OASIS-Simulationskonfiguration
     OASIS_DEFAULT_MAX_ROUNDS = int(os.environ.get('OASIS_DEFAULT_MAX_ROUNDS', '10'))
     OASIS_SIMULATION_DATA_DIR = os.path.join(os.path.dirname(__file__), '../uploads/simulations')
     
-    # OASIS平台可用动作配置
+    # OASIS-Plattform verfügbare Aktionen-Konfiguration
     OASIS_TWITTER_ACTIONS = [
         'CREATE_POST', 'LIKE_POST', 'REPOST', 'FOLLOW', 'DO_NOTHING', 'QUOTE_POST'
     ]
@@ -81,10 +81,10 @@ class Config:
     
     @classmethod
     def validate(cls):
-        """验证必要配置"""
+        """Erforderliche Konfiguration validieren"""
         errors = []
         if not cls.LLM_API_KEY:
-            errors.append("LLM_API_KEY 未配置")
+            errors.append("LLM_API_KEY nicht konfiguriert")
         if not cls.ZEP_API_KEY:
-            errors.append("ZEP_API_KEY 未配置")
+            errors.append("ZEP_API_KEY nicht konfiguriert")
         return errors
